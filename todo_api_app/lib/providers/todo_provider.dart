@@ -12,4 +12,23 @@ class TodoProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  createNewTodo(String todoName, bool? isComplete) async {
+    await _todoService.creatTedo(todoName, isComplete);
+    getTodoList();
+    //notifyListeners();
+  }
+
+  updateTodo(String id, bool? isComplete) async {
+    await _todoService.updateTedo(id, isComplete);
+    getTodoList();
+    // notifyListeners();
+  }
+
+  deleteTodo(String id) async {
+    await _todoService.deleteTodo(id);
+
+    getTodoList();
+    // notifyListeners();
+  }
 }

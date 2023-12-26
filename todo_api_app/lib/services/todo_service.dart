@@ -16,7 +16,36 @@ class TodoService {
       return [];
     } catch (e) {
       //throw e.toString();
-      throw "Erroooor!";
+      throw e.toString();
+    }
+  }
+
+  creatTedo(String todoName, bool? isComplete) async {
+    try {
+      final response = await _dio.post(serverUrl,
+          data: {"todoName": todoName, "isComplete": isComplete});
+      return response.data;
+    } catch (e) {
+      throw "Error";
+    }
+  }
+
+  updateTedo(String id, bool? isComplete) async {
+    try {
+      final response =
+          await _dio.put(serverUrl + "/$id", data: {"isComplete": isComplete});
+      return response.data;
+    } catch (e) {
+      throw "Error";
+    }
+  }
+
+  deleteTodo(String id) async {
+    try {
+      final response = await _dio.delete(serverUrl + "/$id");
+      return response.data;
+    } catch (e) {
+      throw "error";
     }
   }
 }
