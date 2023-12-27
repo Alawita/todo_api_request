@@ -18,7 +18,10 @@ class HomePage extends StatelessWidget {
               },
               icon: Icon(Icons.add)),
           ElevatedButton(
-              onPressed: () => context.read<AuthProvider>().logOut(),
+              onPressed: () {
+                context.read<AuthProvider>().logOut();
+                GoRouter.of(context).go("/signin");
+              },
               child: Text("logout"))
         ],
       ),

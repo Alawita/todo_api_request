@@ -4,26 +4,31 @@ import 'package:provider/provider.dart';
 import 'package:todo_api_app/providers/auth_provider.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: context.read<AuthProvider>().readTokenInStorage(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.data.toString().isNotEmpty) {
-              GoRouter.of(context).go("/homepage");
-            } else {
-              GoRouter.of(context).go("/signup");
-            }
+        future: context.read<AuthProvider>().readTokenInStorage(),
+        builder: (context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            print("token : ${context.read<AuthProvider>().token}");
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-            return SizedBox();
-          }),
+          // Check if the token is not empty after readTokenInStorage completes
+          if (context.watch<AuthProvider>().token.isNotEmpty) {
+            GoRouter.of(context).go("/homepage");
+          } else {
+            GoRouter.of(context).go("/signup");
+          }
+
+          return SizedBox();
+        },
+      ),
     );
   }
 }

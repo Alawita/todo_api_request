@@ -24,19 +24,24 @@ class AuthProvider extends ChangeNotifier {
   Future<void> saveTokenInStorage(String token) async {
     SharedPreferences shared = await SharedPreferences.getInstance();
     shared.setString("token", token);
+    print(token);
+    notifyListeners();
   }
 
   Future<void> readTokenInStorage() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
     token = shared.getString("token") ??
         ""; // ?? null check oporator:used like an if statement
+    print(token);
     notifyListeners();
   }
 
   Future<void> logOut() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
-    shared.setString("token", "");
+    shared.setString("token", '');
     token = "";
+    print(token);
+    saveTokenInStorage(token);
     notifyListeners();
   }
 }
