@@ -8,7 +8,6 @@ class AuthProvider extends ChangeNotifier {
 
   Future<String> signup({required User user}) async {
     token = await AuthService().signup(user: user);
-    saveTokenInStorage(token);
     notifyListeners();
     return token;
   }
@@ -17,7 +16,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<String> signin({required User user}) async {
     token = await AuthService().signin(user: user);
-
+    saveTokenInStorage(token);
     notifyListeners();
     return token;
   }
