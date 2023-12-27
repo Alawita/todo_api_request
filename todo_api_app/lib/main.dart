@@ -5,6 +5,7 @@ import 'package:todo_api_app/pages/add_todo.dart';
 import 'package:todo_api_app/pages/home_page.dart';
 import 'package:todo_api_app/pages/signin.dart';
 import 'package:todo_api_app/pages/signup.dart';
+import 'package:todo_api_app/pages/splash.dart';
 import 'package:todo_api_app/providers/auth_provider.dart';
 import 'package:todo_api_app/providers/todo_provider.dart';
 
@@ -32,7 +33,7 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/',
+      path: '/signup',
       builder: (BuildContext context, GoRouterState state) {
         return SignUpPage();
       },
@@ -41,6 +42,12 @@ final GoRouter _router = GoRouter(
       path: '/signin',
       builder: (BuildContext context, GoRouterState state) {
         return SignInPage();
+      },
+    ),
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return SplashScreen();
       },
     ),
   ],

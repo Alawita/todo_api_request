@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_api_app/providers/auth_provider.dart';
 import 'package:todo_api_app/providers/todo_provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,7 +16,10 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 GoRouter.of(context).push("/add");
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.add)),
+          ElevatedButton(
+              onPressed: () => context.read<AuthProvider>().logOut(),
+              child: Text("logout"))
         ],
       ),
       body: FutureBuilder(
