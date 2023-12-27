@@ -74,6 +74,13 @@ class _SignInPageState extends State<SignInPage> {
                 },
                 child: Text('Sign In'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  // Perform sign-up logic here
+                  GoRouter.of(context).go("/");
+                },
+                child: Text('make new user'),
+              ),
             ],
           ),
         ),
