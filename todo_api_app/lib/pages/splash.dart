@@ -11,22 +11,38 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: FutureBuilder(
         future: context.read<AuthProvider>().readTokenInStorage(),
-        builder: (context, AsyncSnapshot<void> snapshot) {
+        builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             print("token : ${context.read<AuthProvider>().token}");
             return Center(
               child: CircularProgressIndicator(),
             );
-          }
-
-          // Check if the token is not empty after readTokenInStorage completes
-          if (context.watch<AuthProvider>().token.isNotEmpty) {
-            GoRouter.of(context).go("/homepage");
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text("Error"),
+            );
           } else {
-            GoRouter.of(context).go("/signup");
-          }
+            final String? token = snapshot.data;
 
-          return SizedBox();
+            if (token != null && token.isNotEmpty) {
+              WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+                GoRouter.of(context).go("/homepage");
+              });
+            } else {
+              WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+                GoRouter.of(context).go("/signup");
+              });
+            }
+
+            // // Check if the token is not empty after readTokenInStorage completes
+            // if (context.watch<AuthProvider>().token.isNotEmpty) {
+            //   GoRouter.of(context).go("/homepage");
+            // } else {
+            //   GoRouter.of(context).go("/signup");
+            // }
+
+            return SizedBox();
+          }
         },
       ),
     );

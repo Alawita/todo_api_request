@@ -28,12 +28,13 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> readTokenInStorage() async {
+  readTokenInStorage() async {
     SharedPreferences shared = await SharedPreferences.getInstance();
     token = shared.getString("token") ??
         ""; // ?? null check oporator:used like an if statement
     print(token);
     notifyListeners();
+    return token;
   }
 
   Future<void> logOut() async {

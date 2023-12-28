@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           ElevatedButton(
               onPressed: () {
                 context.read<AuthProvider>().logOut();
-                GoRouter.of(context).go("/signin");
+                GoRouter.of(context).go("/");
               },
               child: Text("logout"))
         ],

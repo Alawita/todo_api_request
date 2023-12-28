@@ -33,6 +33,7 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
+      name: "signup",
       path: '/signup',
       builder: (BuildContext context, GoRouterState state) {
         return SignUpPage();
